@@ -52,6 +52,7 @@ public class List {
      *  given chr to the beginning of this list. */
     public void update(char chr) {
         // Your code goes here
+        
     }
 
     /** GIVE If the given character exists in one of the CharData objects
@@ -59,7 +60,23 @@ public class List {
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
         // Your code goes here
-        return false;
+
+        Node prev = null;
+    Node current = first;
+    while (current != null) {
+        if (current.cp.chr == chr) { 
+            if (prev == null) { 
+                first = first.next;
+            } else {
+                prev.next = current.next; 
+            }
+            size--;
+            return true; 
+        }
+        prev = current;
+        current = current.next;
+       }
+    return false; 
     }
 
     /** Returns the CharData object at the specified index in this list. 
