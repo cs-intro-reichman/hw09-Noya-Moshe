@@ -41,13 +41,14 @@ public class List {
     /** GIVE Textual representation of this list. */
     public String toString() {
         // Your code goes here
+        if (size == 0) return "()";
         Node current = first;
         String result = "";
         while(current != null){
-            result += current + " ";
+            result += current.cp.toString() + " ";
             current = current.next;
         }
-        return "( " + result.trim() + " )";
+        return "(" + result.trim() + ")";
     }
 
     /** Returns the index of the first CharData object in this list
