@@ -101,7 +101,20 @@ public class LanguageModel {
 	 */
 	public String generate(String initialText, int textLength) {
 		// Your code goes here
-        return "";
+        String generatedText = initialText;
+        String currentWindow = initialText;
+
+        while(generatedText.length() < textLength){
+            List probs = CharDataMap.get(currentWindow);
+
+            if(probs == null){
+                break;
+            }
+            char nextChar = getRandomChar(probs);
+            generatedText += nextChar;
+            currentWindow = currentWindow.substring(1) + nextChar;
+        }
+        return generatedText;
 	}
 
     /** Returns a string representing the map of this language model. */
@@ -116,6 +129,20 @@ public class LanguageModel {
 
     public static void main(String[] args) {
 		// Your code goes here
-        
+    int windowLength = Integer.parseInt(args[0]);
+    String initialText = args[1];
+    int generatedTextLength = Integer.parseInt(args[2]);
+    boolean randomGeneration = args[3].equals("random");
+    String fileName = args[4];
+
+    LanguageModel lm;
+    if (randomGeneration) {
+        lm = new LanguageModel(windowLength);
+    } else {
+        lm = new LanguageModel(windowLength, 20);
+    }
+    lm.train(fileName);
+
+    System.out.println(lm.generate(initialText, generatedTextLength));
     }
 }
